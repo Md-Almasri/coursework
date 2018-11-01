@@ -22,6 +22,8 @@ public class RegressionAnalysisApp {
         System.out.println("Welcome to the course work");
         RegressionAnalysisApp town1 = new RegressionAnalysisApp();
         town1.addValue(new double[] {4.9176, 1.00, 3.472, 0.998, 1.00, 7.00, 4.00, 42.00});
+        town1.addValue(new double[] {8.9176, 1.00, 3.472, 0.998, 1.00, 7.00, 4.00, 42.00});
+        town1.addValue(new double[] {16.9176, 1.00, 3.472, 0.998, 1.00, 7.00, 4.00, 42.00});
         printList(town1);
     }
     private boolean isEmpty() {
@@ -32,7 +34,7 @@ public class RegressionAnalysisApp {
     private void addValue(double[] values) {
         if(head.getValues() == null) {
             // make variable head point to new node
-            head = new TownValuesList(values, head);
+            head = new TownValuesList(values, null);
         }
         else 
         {
@@ -51,8 +53,9 @@ public class RegressionAnalysisApp {
             System.out.println("List is empty");
         else {
             temp = town1.head;
+            double[] v = new double[8];
             while (temp != null) {
-                double[] v = temp.getValues();
+                v = temp.getValues();
                 for(int i=0; i<v.length; i++) {
                     System.out.println(v[i]);
                 }
