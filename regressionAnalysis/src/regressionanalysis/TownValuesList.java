@@ -48,41 +48,4 @@ public class TownValuesList {
     protected void setNext(TownValuesList newNext) {
         next = newNext; 
   }
-    protected TownValuesList addValue(TownValuesList head, double[] values) {
-        if(head.getValues() == null) {
-            // make variable head point to new node
-            return new TownValuesList(values, null);
-        }
-        else 
-        {
-            TownValuesList tail;
-            tail = head;
-            while(tail.getNext() != null){
-                tail = tail.getNext();
-            }
-            //insert new node at end of list
-            tail.setNext( new TownValuesList(values, null));
-            return head;
-        }
-    }
-    private boolean isEmpty(TownValuesList head) {
-        return  head == null;
-    }
-    public void printList(TownValuesList head) {
-        TownValuesList temp;
-        if(isEmpty(head))
-            System.out.println("List is empty");
-        else {
-            temp = head;
-            double[] v = new double[8];
-            while (temp != null) {
-                v = temp.getValues();
-                for(int i=0; i<v.length; i++) {
-                    System.out.println(v[i]);
-                }
-                temp = temp.getNext();
-            }
-            System.out.println();
-        }
-    }
 }
