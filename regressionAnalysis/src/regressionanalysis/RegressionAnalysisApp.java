@@ -27,7 +27,7 @@ public class RegressionAnalysisApp {
         printList(town1);
     }
     private boolean isEmpty() {
-        return  head == null;
+        return  head.getValues() == null;
     }
     //add a new node to the head of the list if it is value equal null 
     //or add more value to the list

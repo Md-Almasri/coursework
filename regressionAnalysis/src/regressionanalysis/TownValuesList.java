@@ -25,27 +25,27 @@ public class TownValuesList {
     */
     private double[] values;
     private TownValuesList next;
-    public TownValuesList() {
+    protected TownValuesList() {
         /** Creates a node with null references to its element and next node. */
         this(null, null);
     }
     /** Creates a node with the given element and next node. */
-    public TownValuesList(double[] values, TownValuesList next) {
+    protected TownValuesList(double[] values, TownValuesList next) {
         this.values = values;
         this.next = next;
     }
     // Accessor methods:
-    public double[] getValues() {
+    protected double[] getValues() {
         return values;
     }
-    public TownValuesList getNext() {
+    protected TownValuesList getNext() {
         return next;
     }
     // Modifier methods:
-    public void setValues(double[] newElem) { 
+    protected void setValues(double[] newElem) { 
         values = newElem;
   }
-    public void setNext(TownValuesList newNext) {
+    protected void setNext(TownValuesList newNext) {
         next = newNext; 
   }
 }
