@@ -14,10 +14,15 @@ public class TownValuesListFunctionality {
      * @param args the command line arguments
      */
     private TownValuesList head;
+    private int listSize = -1;
     public  TownValuesListFunctionality() {
         head = new TownValuesList();
     }
+    protected int getListSize() {
+        return listSize;
+    }
     protected void addValue(double[] values) {
+        listSize++;
         if(head.getValues() == null) {
             // make variable head point to new node
             head = new TownValuesList(values, null);
@@ -34,7 +39,7 @@ public class TownValuesListFunctionality {
         }
     }
     private boolean isEmpty(TownValuesList head) {
-        return  head == null;
+        return  head.getValues() == null && head.getNext() == null;
     }
     public void printList() {
         TownValuesList temp;
@@ -52,5 +57,69 @@ public class TownValuesListFunctionality {
             }
             System.out.println();
         }
-    }    
+    }
+    public double[] getX(String x) {
+        TownValuesList tail;
+        tail = head;
+        double[] xValues = new double[listSize + 1];
+        switch (x) {
+            case "price":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[0];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+            case "x1":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[1];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+            case "x2":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[2];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+            case "x3":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[3];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+            case "x4":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[4];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+            case "x5":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[5];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+            case "x6":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[6];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+            case "x7":{
+                for(int i=0; i<=listSize; i++) {
+                    xValues[i] = tail.getValues()[7];
+                    tail = tail.getNext();
+                }
+                break;
+            }
+        }
+        return xValues;
+    }
 }
