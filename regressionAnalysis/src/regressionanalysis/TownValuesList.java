@@ -21,7 +21,7 @@ public class TownValuesList {
     x5: no of rooms
     x6: no of bedrooms
     x7: age of property (years)
-    example of values: [price, x1, x2, x3, x4, x5, x6, x7]
+    example of values: an array that contains [price, x1, x2, x3, x4, x5, x6, x7]
     */
     private double[] values;
     private TownValuesList next;

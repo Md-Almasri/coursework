@@ -18,9 +18,11 @@ public class TownValuesListFunctionality {
     public  TownValuesListFunctionality() {
         head = new TownValuesList();
     }
+    // A method that return the length of the list.
     protected int getListSize() {
         return listSize;
     }
+    // Add values to the list.
     protected void addValue(double[] values) {
         listSize++;
         if(head.getValues() == null) {
@@ -38,6 +40,7 @@ public class TownValuesListFunctionality {
             tail.setNext( new TownValuesList(values, null));
         }
     }
+    // A method that check the list whether it is empty or not.
     private boolean isEmpty(TownValuesList head) {
         return  head.getValues() == null && head.getNext() == null;
     }
@@ -58,6 +61,7 @@ public class TownValuesListFunctionality {
             System.out.println();
         }
     }
+    // A method that return a specific values of the list.
     public double[] getX(String x) {
         TownValuesList tail;
         tail = head;
