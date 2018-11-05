@@ -36,14 +36,14 @@ public class RegressionAnalysisApp {
         town1.values.addValue(new double[] {8.7951, 1.5, 9.89, 1.82, 2.00, 8.00, 4.00, 50.00});
         town1.values.addValue(new double[] {9.0384, 1.00, 7.8, 1.5, 2.00, 7.00, 3.00, 23.00});
         double[] price = town1.values.getX("price");
-        double[] x1 = town1.values.getX("x1");
+        double[] x = town1.values.getX("x1");
         town1.values.printList();
         System.out.println("Size of list for town 1 :" + town1.values.getListSize());
         for(int i=0; i<price.length;i++) {
             System.out.println("price: " + price[i]);
         }
         town2.values.printList();
-        town1.linear.getFormula(price, x1);
+        town1.linear.getFormula(price, x);
         
         // Test 
         RegressionAnalysisApp test = new RegressionAnalysisApp();
