@@ -43,15 +43,20 @@ public class RegressionAnalysisApp {
             System.out.println("price: " + price[i]);
         }
         town2.values.printList();
-        town1.linear.getFormula(price, x);
+        double[] town1SlopeIntercept = new double[2];
+        town1SlopeIntercept = town1.linear.getSlopeInterceptValues(price,x);
+        System.out.println(town1SlopeIntercept[0] + "  " + town1SlopeIntercept[1] + "  " + town1SlopeIntercept[2]);
+        System.out.println(town1.linear.getFormula());
         
         // Test 
         RegressionAnalysisApp test = new RegressionAnalysisApp();
         test.values.addValue(new double[] {-2,1});
         test.values.addValue(new double[] {5,2});
         test.values.addValue(new double[] {9,3});
-        test.linear.getFormula(test.values.getX("price"), test.values.getX("x1")); // y = -7+5.5X
-        
+        double[] testSlopeIntercept = test.linear.getSlopeInterceptValues(test.values.getX("price"), test.values.getX("x1"));
+        System.out.println(testSlopeIntercept[0] + "  " + testSlopeIntercept[1] + "  " + testSlopeIntercept[2]);
+        System.out.println(test.linear.getFormula());// y = -7+5.5X
+         
         // Another test
         RegressionAnalysisApp test1 = new RegressionAnalysisApp();
         test1.values.addValue(new double[] {1,1});
@@ -59,6 +64,25 @@ public class RegressionAnalysisApp {
         test1.values.addValue(new double[] {1.30,3});
         test1.values.addValue(new double[] {3.75,4});
         test1.values.addValue(new double[] {2.25,5});
-        test1.linear.getFormula(test1.values.getX("price"), test1.values.getX("x1")); // Y = 0.425X + 0.785
+        double[] test1SlopeIntercept = test1.linear.getSlopeInterceptValues(test1.values.getX("price"), test1.values.getX("x1"));
+        System.out.println(test1SlopeIntercept[0] + "  " + test1SlopeIntercept[1] + "  " + test1SlopeIntercept[2]);
+        System.out.println(test1.linear.getFormula());// Y = 0.425X + 0.785
+        
+        // Another test
+        RegressionAnalysisApp test2 = new RegressionAnalysisApp();
+        test2.values.addValue(new double[] {51.6,1994});
+        test2.values.addValue(new double[] {53.8,1995});
+        test2.values.addValue(new double[] {56.5,1996});
+        test2.values.addValue(new double[] {61.8,1997});
+        test2.values.addValue(new double[] {64.8,1998});
+        test2.values.addValue(new double[] {70.2,1999});
+        test2.values.addValue(new double[] {79.9,2000});
+        test2.values.addValue(new double[] {75.7,2001});
+        test2.values.addValue(new double[] {73.2,2002});
+        test2.values.addValue(new double[] {76.0,2003});
+        test2.values.addValue(new double[] {80.2,2004});
+        double[] test2SlopeIntercept = test2.linear.getSlopeInterceptValues(test2.values.getX("price"), test2.values.getX("x1"));
+        System.out.println(test2SlopeIntercept[0] + "  " + test2SlopeIntercept[1] + "  " + test2SlopeIntercept[2]);
+        System.out.println(test2.linear.getFormula());// Y = 0.425X + 0.785
     }
 }
