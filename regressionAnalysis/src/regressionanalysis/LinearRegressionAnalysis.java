@@ -46,18 +46,15 @@ public class LinearRegressionAnalysis {
 //        display(yArr);
         meanOfAllTheYValues = meanValue(yArr);
         yVarianceValue = varianceValue(yArr);
-//        double[] yVarianceValue = varianceValue(yArr);
         sumOfSquaresOfYY = sumValue(squaredArrayValues(yVarianceValue));
         double[] xVarianceValue = varianceValue(xArr);
         double[] xyVarianceValue = new double[xVarianceValue.length];
-//        display(xVarianceValue);
         sumOfSquaresOfXX = sumValue(squaredArrayValues(xVarianceValue));
-        System.out.println("Sxx " + sumOfSquaresOfXX);
+//        System.out.println("Sxx " + sumOfSquaresOfXX);
         for(int i=0; i<xyVarianceValue.length; i++) {
             xyVarianceValue[i] = (xVarianceValue[i])*(yVarianceValue[i]);
         }
         sumOfSquaresOfXY = sumValue(xyVarianceValue);
-        System.out.println("Sxy " + sumOfSquaresOfXY);
         slope = sumOfSquaresOfXY/sumOfSquaresOfXX;
         intercept = meanOfAllTheYValues - (slope* meanValue(xArr));
         squaredR = ((Math.pow(sumOfSquaresOfXY,2))/(sumOfSquaresOfXX*sumOfSquaresOfYY));
@@ -80,7 +77,7 @@ public class LinearRegressionAnalysis {
         intercept = meanOfAllTheYValues - (slope* meanValue(xArr));
         squaredR = ((Math.pow(sumOfSquaresOfXY,2))/(sumOfSquaresOfXX*sumOfSquaresOfYY));
     }
-    // A method that accept an array as an argument and return the sum of values in that array.
+    // A method that accepts an array as an argument and return the sum of values in that array.
     private double sumValue(double[] arr) {
         double sum = 0;
         for(double i:arr){
@@ -88,11 +85,11 @@ public class LinearRegressionAnalysis {
         }
         return sum;
     }
-    // A method that return the mean of an array values.
+    // A method that returns the mean of an array values.
     private double meanValue(double[] arr) {
         return sumValue(arr)/arr.length;
     }
-    // A method that return an array which contains the variance of an array value.
+    // A method that returns an array which contains the variance of an array value.
     private double[] varianceValue(double[] arr) {
         double mean = meanValue(arr);
         double[] temp = new double[arr.length];
@@ -101,7 +98,7 @@ public class LinearRegressionAnalysis {
         }
         return temp;
     }
-    // A method that return an array which contains the squared variance of an array value.
+    // A method that returns an array which contains the squared variance of an array value.
     private double[] squaredArrayValues(double[] arr) {
         double[] temp = new double[arr.length];
         for(int i = 0; i<temp.length; i++) {
@@ -109,12 +106,12 @@ public class LinearRegressionAnalysis {
         }
         return temp;
     }
-    // A method that return the standard deviation value.
+    // A method that returns the standard deviation value.
     public double standardDeviationValue(double[] arr) {
         double[] squaredVarianceValue = squaredArrayValues(arr);
         return sumValue(squaredVarianceValue)/(squaredVarianceValue.length-1);
     }
-    // A method that print an array values.
+    // A method that prints an array values.
     private void display(double[] arr) {
         for(double i:arr){
             System.out.print(i + " ");
