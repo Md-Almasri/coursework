@@ -104,5 +104,24 @@ public class RegressionAnalysisApp {
         double[] test2SlopeIntercept = town5.linear.getSlopeInterceptSquaredrValues(town5.values.getX("price"), town5.values.getX("x1"));
         System.out.println(test2SlopeIntercept[0] + "  " + test2SlopeIntercept[1] + "  " + test2SlopeIntercept[2]);
         System.out.println(town5.linear.getFormula());// Y = 0.425X + 0.785
+        
+        // Another test
+        RegressionAnalysisApp town6 = new RegressionAnalysisApp();
+        double[][] town6Data = new double[][]{
+                        {1,1},
+                        {2,2},
+                        {3,3},
+                        {4,4},
+                        {5,5},
+                        {6,6},
+                        {7,7},
+                        {8,8}
+                    };
+        for(double[] i:town6Data){
+            town6.values.addValue(i);
+        }
+        double[] test6SlopeIntercept = town6.linear.getSlopeInterceptSquaredrValues(town6.values.getX("price"), town6.values.getX("x1"));
+        System.out.println(test6SlopeIntercept[0] + "  " + test6SlopeIntercept[1] + "  " + test6SlopeIntercept[2]);
+        System.out.println(town6.linear.getFormula());// Y = 1X + 0
     }
 }
