@@ -10,72 +10,55 @@ package regressionanalysis;
  * @author MohiEddin
  */
 public class LinearRegressionAnalysis {
-    // Instances variables:
-    private double slope, intercept, squaredR;
-    // !!!!!!It is important to add some check when the y axis values are changed, so we need to invoke getSlopeInterceptSquaredrValues with two parameters.
-    private double meanOfAllTheYValues, sumOfSquaresOfYY;
-    private double[] yVarianceValue;
     /**
      * A method that accepts two arguments ,which are the values of y axis and x axis,
      * and invoke another method with two arguments to calculate the slope, intercept and squared R, and then
      * return an array which has the slope\B1 in index 0 and the intercept\B0 in index 1 and the squared R in index[2].
-     * @param yArr
-     * @param xArr
-     * @return [slope, intercept, squaredR].
+     * @param yAxisValues
+     * @param xAxisValues
+     * @return DetailedData.
      */
-    public double[] getSlopeInterceptSquaredrValues(double[] yArr, double[] xArr) {
-        slopeInterceptCalc(yArr, xArr);
-        double[] value = {slope, intercept, squaredR};
-        return value;
+    public DetailedData getLinear(double[] yAxisValues, double[] xAxisValues) {
+        DetailedData  detailedData = new DetailedData();
+        detailedData.xAxisValues = xAxisValues;
+        detailedData.yAxisValues = yAxisValues;
+        detailedData.numOfXs = xAxisValues.length;
+        detailedData.numOfYs = yAxisValues.length;
+        for(int i = 0; i < yAxisValues.length; i++) {
+            detailedData.sumOfXY += (xAxisValues[i] * yAxisValues[i]);
+            detailedData.sumOfY += yAxisValues[i];
+            detailedData.sumOfX += xAxisValues[i];
+            detailedData.sumOfSquaredX += Math.pow(xAxisValues[i], 2);
+            detailedData.sumOfSquaredY += Math.pow(yAxisValues[i], 2);;
+        }
+        detailedData.meanOfY = detailedData.sumOfY / detailedData.numOfYs;
+        detailedData.meanOfX = detailedData.sumOfX / detailedData.numOfXs;
+        // Call a method to calculate the slop, intercept and squared R.
+        slopeInterceptCalc(yAxisValues, xAxisValues, detailedData);
+        return detailedData;
     }
     /**
-     * A method that returns a string which is the formula.
-     * @return "y=" + intercept + "+" + slope + "x"
-     */
-    public String getFormula() {
-        return ("y=" + intercept + "+" + slope + "x");
-    }
-    /**
-     * A method that accepts two arguments ,which are the values of y axis and x axis, 
+     * A method that accepts three arguments ,which are the values of y axis, x axis and detailed data. 
      * and calculates the intercept, slope and squared R.
-     * @param yArr
-     * @param xArr 
+     * @param yAxisValues
+     * @param xAxisValues
+     * @param detailedData
      */
-    private void slopeInterceptCalc(double[] yArr, double[] xArr) {
-        double sumOfSquaresOfXX, sumOfSquaresOfXY;
-//        display(yArr);
-        meanOfAllTheYValues = meanValue(yArr);
-        yVarianceValue = varianceValue(yArr);
-        sumOfSquaresOfYY = sumValue(squaredArrayValues(yVarianceValue));
-        double[] xVarianceValue = varianceValue(xArr);
-        double[] xyVarianceValue = new double[xVarianceValue.length];
-        sumOfSquaresOfXX = sumValue(squaredArrayValues(xVarianceValue));
-//        System.out.println("Sxx " + sumOfSquaresOfXX);
-        for(int i=0; i<xyVarianceValue.length; i++) {
-            xyVarianceValue[i] = (xVarianceValue[i])*(yVarianceValue[i]);
+    private void slopeInterceptCalc(double[] yAxisValues, double[] xAxisValues, DetailedData  detailedData) {
+        double[] xDeviations = deviationsFromTheMean(xAxisValues);
+        double[] xyDeviations = new double[xDeviations.length];
+        detailedData.yDeviations = deviationsFromTheMean(yAxisValues);
+        detailedData.yVariance = sumValue(squaredArrayValues(detailedData.yDeviations));
+        detailedData.xVariance = sumValue(squaredArrayValues(xDeviations));
+        for(int i=0; i<xDeviations.length; i++) {
+            xyDeviations[i] = xDeviations[i]*detailedData.yDeviations[i];
         }
-        sumOfSquaresOfXY = sumValue(xyVarianceValue);
-        slope = sumOfSquaresOfXY/sumOfSquaresOfXX;
-        intercept = meanOfAllTheYValues - (slope* meanValue(xArr));
-        squaredR = ((Math.pow(sumOfSquaresOfXY,2))/(sumOfSquaresOfXX*sumOfSquaresOfYY));
-    }
-    public double[] getSlopeInterceptSquaredrValues(double[] xArr) {
-        slopeInterceptCalc(xArr);
-        double[] value = {slope, intercept, squaredR};
-        return value;
-    }
-    private void slopeInterceptCalc(double[] xArr) {
-        double sumOfSquaresOfXX, sumOfSquaresOfXY;
-        double[] xVarianceValue = varianceValue(xArr);
-        double[] xyVarianceValue = new double[xVarianceValue.length];
-        sumOfSquaresOfXX = sumValue(squaredArrayValues(xVarianceValue));
-        for(int i=0; i<xyVarianceValue.length; i++) {
-            xyVarianceValue[i] = (xVarianceValue[i])*(yVarianceValue[i]);
-        }
-        sumOfSquaresOfXY = sumValue(xyVarianceValue);
-        slope = sumOfSquaresOfXY/sumOfSquaresOfXX;
-        intercept = meanOfAllTheYValues - (slope* meanValue(xArr));
-        squaredR = ((Math.pow(sumOfSquaresOfXY,2))/(sumOfSquaresOfXX*sumOfSquaresOfYY));
+        detailedData.xyVariance = sumValue(xyDeviations);
+        detailedData.xStdDev = Math.sqrt(detailedData.xVariance / (detailedData.numOfXs - 1));
+        detailedData.yStdDev = Math.sqrt(detailedData.yVariance / (detailedData.numOfYs - 1));
+        detailedData.slope = detailedData.xyVariance/detailedData.xVariance;
+        detailedData.intercept = detailedData.meanOfY - (detailedData.slope* detailedData.meanOfX);
+        detailedData.squaredR = ((Math.pow(detailedData.xyVariance,2))/(detailedData.xVariance*detailedData.yVariance));
     }
     // A method that accepts an array as an argument and return the sum of values in that array.
     private double sumValue(double[] arr) {
@@ -90,7 +73,7 @@ public class LinearRegressionAnalysis {
         return sumValue(arr)/arr.length;
     }
     // A method that returns an array which contains the variance of an array value.
-    private double[] varianceValue(double[] arr) {
+    private double[] deviationsFromTheMean(double[] arr) {
         double mean = meanValue(arr);
         double[] temp = new double[arr.length];
         for(int i = 0; i<temp.length; i++) {
@@ -98,7 +81,7 @@ public class LinearRegressionAnalysis {
         }
         return temp;
     }
-    // A method that returns an array which contains the squared variance of an array value.
+    // A method that returns an array which contains the squared of an array values.
     private double[] squaredArrayValues(double[] arr) {
         double[] temp = new double[arr.length];
         for(int i = 0; i<temp.length; i++) {
@@ -106,12 +89,7 @@ public class LinearRegressionAnalysis {
         }
         return temp;
     }
-    // A method that returns the standard deviation value.
-    public double standardDeviationValue(double[] arr) {
-        double[] squaredVarianceValue = squaredArrayValues(arr);
-        return sumValue(squaredVarianceValue)/(squaredVarianceValue.length-1);
-    }
-    // A method that prints an array values.
+    // A method that prints an array values for test.
     private void display(double[] arr) {
         for(double i:arr){
             System.out.print(i + " ");
