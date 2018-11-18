@@ -13,18 +13,14 @@ public class RegressionAnalysisApp {
     /**
      * @param args the command line arguments
      */
-    protected TownValuesListFunctionality values;
-    protected DetailedData detailedData;
-    public  RegressionAnalysisApp() {
-        values = new TownValuesListFunctionality();
-        detailedData = new DetailedData();
-    }
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Welcome to the course work");
-        RegressionAnalysisApp town1 = new RegressionAnalysisApp();
         
-        // An array that contains town1 data
+        // Example 1. start
+        // Create town 1 instance.
+        TownValuesListFunctionality town1 = new TownValuesListFunctionality();
+        // A sample of data which is an array that contains town1 data
         double[][] town1Data = new double[][]{
                         {4.9176, 1.00, 3.472, 0.998, 1.00, 7.00, 4.00, 42.00},
                         {5.0208, 1.00, 3.531, 1.5, 2.00, 7.00, 4.00, 62.00},
@@ -38,23 +34,71 @@ public class RegressionAnalysisApp {
                         {8.7951, 1.5, 9.89, 1.82, 2.00, 8.00, 4.00, 50.00},
                         {9.0384, 1.00, 7.8, 1.5, 2.00, 7.00, 3.00, 23.00}
                     };
-        
         // Add values to the town1 list
         for(double[] i:town1Data){
-            town1.values.addValue(i);
+            town1.addValue(i);
         }
-        
-        //
-        DetailedData town1SlopeIntercept = new DetailedData();
+        // Create an instance of DetailedData class that will contain all required values.
+        DetailedData town1DetailedData;
         String yAxis = "price";
         String xAxis = "x";
         for(int i=1; i<8;i++) {
-            town1SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.values.getX(yAxis),town1.values.getX(xAxis + i));
-            System.out.println(town1SlopeIntercept.intercept + "  " + town1SlopeIntercept.slope + "  " + town1SlopeIntercept.squaredR);
+            town1DetailedData = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + i));
+            System.out.println(town1DetailedData.intercept + "  " + town1DetailedData.slope + "  " + town1DetailedData.squaredR);
         }
+        // Example 1. finish
         
+        // Example 2. start
+        // Empty list test
+        TownValuesListFunctionality town2 = new TownValuesListFunctionality();
+        town2.printList();
+        // Example 2. finish
+        
+        // Example 3. start
+        TownValuesListFunctionality town3 = new TownValuesListFunctionality();
+        town3.addValue(new double[] {-2,1});
+        town3.addValue(new double[] {5,2});
+        town3.addValue(new double[] {9,3});
+        DetailedData town3DetailedData = LinearRegressionAnalysis.getLinear(town3.getX("price"), town3.getX("x1"));
+        System.out.println(town3DetailedData.intercept + "  " + town3DetailedData.slope + "  " + town3DetailedData.squaredR);// y = -7+5.5X
+        // Example 3. finish
+        
+        // Example 4. start.
         // Another test
-        RegressionAnalysisApp town6 = new RegressionAnalysisApp();
+        TownValuesListFunctionality town4 = new TownValuesListFunctionality();
+        town4.addValue(new double[] {1,1});
+        town4.addValue(new double[] {2,2});
+        town4.addValue(new double[] {1.30,3});
+        town4.addValue(new double[] {3.75,4});
+        town4.addValue(new double[] {2.25,5});
+        DetailedData town4DetailedData = LinearRegressionAnalysis.getLinear(town4.getX("price"), town4.getX("x1"));
+        System.out.println(town4DetailedData.intercept + "  " + town4DetailedData.slope + "  " + town4DetailedData.squaredR);// Y = 0.425X + 0.785
+        // Example 4. finish.
+        
+        // Example 5. start.
+        TownValuesListFunctionality town5 = new TownValuesListFunctionality();
+        double[][] town5Data = new double[][]{
+                        {51.6,1994},
+                        {53.8,1995},
+                        {56.5,1996},
+                        {61.8,1997},
+                        {64.8,1998},
+                        {70.2,1999},
+                        {79.9,2000},
+                        {75.7,2001},
+                        {73.2,2002},
+                        {76.0,2003},
+                        {80.2,2004}
+                    };
+        for(double[] i:town5Data){
+            town5.addValue(i);
+        }
+        DetailedData town5DetailedData = LinearRegressionAnalysis.getLinear(town5.getX("price"), town5.getX("x1"));
+        System.out.println(town5DetailedData.intercept + "  " + town5DetailedData.slope + "  " + town5DetailedData.squaredR);// Y = 0.425X + 0.785
+        // Example 5. finish.
+        
+        // Example 6. start
+        TownValuesListFunctionality town6 = new TownValuesListFunctionality();
         double[][] town6Data = new double[][]{
                         {1,1},
                         {2,2},
@@ -66,9 +110,14 @@ public class RegressionAnalysisApp {
                         {8,8}
                     };
         for(double[] i:town6Data){
-            town6.values.addValue(i);
+            town6.addValue(i);
         }
-        DetailedData test = LinearRegressionAnalysis.getLinear(town6.values.getX("price"), town6.values.getX("x1"));
-        System.out.println(test.intercept + "  " + test.slope + "  " + test.squaredR);
+        DetailedData town6DetailedData = LinearRegressionAnalysis.getLinear(town6.getX("price"), town6.getX("x1"));
+        System.out.println(town6DetailedData.intercept + "  " + town6DetailedData.slope + "  " + town6DetailedData.squaredR);
+        // Example 6. finish.
+        // examples how to get any detailed data for each town.
+        System.out.println(town6DetailedData.intercept);
+        System.out.println(town6DetailedData.meanOfX);
+        System.out.println(town6DetailedData.meanOfY);
     }
 }
