@@ -18,7 +18,7 @@ public class LinearRegressionAnalysis {
      * @param xAxisValues
      * @return DetailedData.
      */
-    public DetailedData getLinear(double[] yAxisValues, double[] xAxisValues) {
+    public static DetailedData getLinear(double[] yAxisValues, double[] xAxisValues) {
         DetailedData  detailedData = new DetailedData();
         detailedData.xAxisValues = xAxisValues;
         detailedData.yAxisValues = yAxisValues;
@@ -44,7 +44,7 @@ public class LinearRegressionAnalysis {
      * @param xAxisValues
      * @param detailedData
      */
-    private void slopeInterceptCalc(double[] yAxisValues, double[] xAxisValues, DetailedData  detailedData) {
+    private static void slopeInterceptCalc(double[] yAxisValues, double[] xAxisValues, DetailedData  detailedData) {
         double[] xDeviations = deviationsFromTheMean(xAxisValues);
         double[] xyDeviations = new double[xDeviations.length];
         detailedData.yDeviations = deviationsFromTheMean(yAxisValues);
@@ -61,7 +61,7 @@ public class LinearRegressionAnalysis {
         detailedData.squaredR = ((Math.pow(detailedData.xyVariance,2))/(detailedData.xVariance*detailedData.yVariance));
     }
     // A method that accepts an array as an argument and return the sum of values in that array.
-    private double sumValue(double[] arr) {
+    private static double sumValue(double[] arr) {
         double sum = 0;
         for(double i:arr){
             sum += i;
@@ -69,11 +69,11 @@ public class LinearRegressionAnalysis {
         return sum;
     }
     // A method that returns the mean of an array values.
-    private double meanValue(double[] arr) {
+    private static double meanValue(double[] arr) {
         return sumValue(arr)/arr.length;
     }
     // A method that returns an array which contains the variance of an array value.
-    private double[] deviationsFromTheMean(double[] arr) {
+    private static double[] deviationsFromTheMean(double[] arr) {
         double mean = meanValue(arr);
         double[] temp = new double[arr.length];
         for(int i = 0; i<temp.length; i++) {
@@ -82,7 +82,7 @@ public class LinearRegressionAnalysis {
         return temp;
     }
     // A method that returns an array which contains the squared of an array values.
-    private double[] squaredArrayValues(double[] arr) {
+    private static double[] squaredArrayValues(double[] arr) {
         double[] temp = new double[arr.length];
         for(int i = 0; i<temp.length; i++) {
             temp[i] = Math.pow(arr[i], 2);
@@ -90,7 +90,7 @@ public class LinearRegressionAnalysis {
         return temp;
     }
     // A method that prints an array values for test.
-    private void display(double[] arr) {
+    private static void display(double[] arr) {
         for(double i:arr){
             System.out.print(i + " ");
         }

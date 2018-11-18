@@ -14,11 +14,9 @@ public class RegressionAnalysisApp {
      * @param args the command line arguments
      */
     protected TownValuesListFunctionality values;
-    protected LinearRegressionAnalysis linear;
     protected DetailedData detailedData;
     public  RegressionAnalysisApp() {
         values = new TownValuesListFunctionality();
-        linear = new LinearRegressionAnalysis();
         detailedData = new DetailedData();
     }
     public static void main(String[] args) {
@@ -51,7 +49,7 @@ public class RegressionAnalysisApp {
         String yAxis = "price";
         String xAxis = "x";
         for(int i=1; i<8;i++) {
-            town1SlopeIntercept = town1.linear.getLinear(town1.values.getX(yAxis),town1.values.getX(xAxis + i));
+            town1SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.values.getX(yAxis),town1.values.getX(xAxis + i));
             System.out.println(town1SlopeIntercept.intercept + "  " + town1SlopeIntercept.slope + "  " + town1SlopeIntercept.squaredR);
         }
         
@@ -70,7 +68,7 @@ public class RegressionAnalysisApp {
         for(double[] i:town6Data){
             town6.values.addValue(i);
         }
-        DetailedData test = town6.linear.getLinear(town6.values.getX("price"), town6.values.getX("x1"));
+        DetailedData test = LinearRegressionAnalysis.getLinear(town6.values.getX("price"), town6.values.getX("x1"));
         System.out.println(test.intercept + "  " + test.slope + "  " + test.squaredR);
     }
 }
