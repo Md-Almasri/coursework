@@ -5,6 +5,13 @@
  */
 package regressionanalysis;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 /**
  *
  * @author MohiEddin
@@ -119,5 +126,71 @@ public class RegressionAnalysisApp {
         System.out.println(town6DetailedData.intercept);
         System.out.println(town6DetailedData.meanOfX);
         System.out.println(town6DetailedData.meanOfY);
+        
+        double[] x = town4.getX("x1");
+        double[] y = town4.getX("price");
+        double[] s = {
+            town4DetailedData.slope,
+            town4DetailedData.intercept,
+            town4DetailedData.squaredR
+        };
+        Graph graph = new Graph(x,y,s);
+        JPanel dDPnl = new JPanel();
+        JPanel panel2 = new JPanel();
+        String[] choices = {
+            "No. of Bathrooms",
+            "Area of the Site",
+            "Size of Living Space",
+            "No. of Garages",
+            "No. of Rooms",
+            "No. of Bedrooms",
+            "Age of property"
+        };
+        JComboBox<String> cb = new JComboBox<String>(choices);
+        cb.setVisible(true);
+        dDPnl.add(cb);
+        JButton btn = new JButton("Change");
+        dDPnl.add(btn);
+        JFrame f =  new JFrame();
+        f.setSize(800, 800);
+        f.setTitle("House Price Estimator");
+        f.setVisible(true);
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.add(Graph.graphPanel, BorderLayout.CENTER);
+        f.add(dDPnl, BorderLayout.EAST);
+        f.add(Graph.graphPanel, BorderLayout.CENTER);
+        f.pack();
+        cb.addActionListener (new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String xChosen = cb.getSelectedItem().toString();
+                DetailedData SlopeIntercept;
+                if (xChosen == "No. of Bathrooms") {
+                    SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + 1));
+//                    graph.update(SlopeIntercept.xAxisValues, SlopeIntercept.yAxisValues, new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                    // or
+                    graph.update(town1.getX(xAxis + 1), town1.getX(yAxis), new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                } else if (xChosen == "Area of the Site"){
+                    SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + 2));
+                    graph.update(town1.getX(xAxis + 2), town1.getX(yAxis), new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                } else if (xChosen == "Size of Living Space"){
+                    SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + 3));
+                    graph.update(town1.getX(xAxis + 3), town1.getX(yAxis), new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                } else if (xChosen == "No. of Garages"){
+                    SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + 4));
+                    graph.update(town1.getX(xAxis + 4), town1.getX(yAxis), new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                } else if (xChosen == "No. of Rooms"){
+                    SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + 5));
+                    graph.update(town1.getX(xAxis + 5), town1.getX(yAxis), new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                } else if (xChosen == "No. of Bedrooms") {
+                    SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + 6));
+                    graph.update(town1.getX(xAxis + 6), town1.getX(yAxis), new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                } else if (xChosen == "Age of property") {
+                    SlopeIntercept = LinearRegressionAnalysis.getLinear(town1.getX(yAxis),town1.getX(xAxis + 7));
+                    graph.update(town1.getX(xAxis + 7), town1.getX(yAxis), new double[] {SlopeIntercept.slope, SlopeIntercept.intercept});
+                }
+            }
+        });
     }
 }
