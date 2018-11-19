@@ -134,7 +134,7 @@ public class RegressionAnalysisApp {
             town4DetailedData.intercept,
             town4DetailedData.squaredR
         };
-        Graph graph = new Graph(x,y,s);
+        Graph graph = new Graph();
         JPanel dDPnl = new JPanel();
         JPanel panel2 = new JPanel();
         String[] choices = {
