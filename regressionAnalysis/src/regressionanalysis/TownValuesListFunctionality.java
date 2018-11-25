@@ -40,6 +40,12 @@ public class TownValuesListFunctionality {
             tail.setNext( new TownValuesList(values, null));
         }
     }
+    // A method that clear the list and srt the head to the null.
+    protected void clear() {
+        head.setValues(null);
+        head.setNext(null);
+        listSize = -1;
+    }
     // A method that check the list whether it is empty or not.
     private boolean isEmpty(TownValuesList head) {
         return  head.getValues() == null && head.getNext() == null;
